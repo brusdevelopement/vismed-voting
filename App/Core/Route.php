@@ -13,29 +13,32 @@ class Route
             $controller_name = 'Main';
             $action_name = 'index';
 
-            $routes = explode('/', $_SERVER['REQUEST_URI']);
+            //$routes = explode('/', $_SERVER['REQUEST_URI']);
+            $routes = parse_url($_SERVER['REQUEST_URI']);
 
-            switch ($routes[1]){
-                case ('index.php'):
-                    $routes[1] = 'Main';
+            switch ($routes['path']){
+                case ('/index.php'):
+                    $routes['path'] = 'Main';
                     break;
                 case(''):
-                    $routes[1] = 'Main';
+                    $routes['path'] = 'Main';
                     break;
                 default:
+                    $routes['path'] = explode('/', $routes['path']);
                     break;
             }
 
             // получаем имя контроллера
-            if ( !empty($routes[1]) )
+            if ( !empty($routes['path'][1]) )
             {
-                $controller_name = ucfirst($routes[1]);
+                $controller_name = ucfirst($routes['path'][1]);
             }
 
             // получаем имя экшена
-            if ( !empty($routes[2]) )
+            if ( !empty($routes['path'][2]) )
             {
-                $action_name = $routes[2];
+                $action_name = $routes['path'][2];
+                //print_r($action_name);
             }
 
             // добавляем префиксы
@@ -85,11 +88,11 @@ class Route
 
         }
 
-    function ErrorPage404()
-    {
-        $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
-        header('HTTP/1.1 404 Not Found');
-        header("Status: 404 Not Found");
-        header('Location:'.$host.'404');
-    }
+        function ErrorPage404()
+        {
+            $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
+            header('HTTP/1.1 404 Not Found');
+            header("Status: 404 Not Found");
+            header('Location:'.$host.'404');
+        }
 }

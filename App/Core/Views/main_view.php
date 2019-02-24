@@ -6,4 +6,5 @@
  * Time: 2:14
  */
 ?>
-<div>Добро пожаловать!</div>
+
+<div id="chart_div"></div>

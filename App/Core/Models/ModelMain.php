@@ -6,7 +6,7 @@
  * Time: 1:58
  */
 
-class ModelMain
+class ModelMain extends Model
 {
 
 }

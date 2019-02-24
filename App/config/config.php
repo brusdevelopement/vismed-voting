@@ -10,4 +10,5 @@ require_once 'App/Core/Controllers/Controller.php';
 require_once 'App/Core/Models/Model.php';
 require_once 'App/Core/Views/View.php';
 require_once 'App/Core/Route.php';
+require_once 'App/Core/DbPdo.php';
 Route::start();

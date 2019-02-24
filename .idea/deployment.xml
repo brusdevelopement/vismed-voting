@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="vismed-stories" uploadOnCheckin="adb98e40-fc5c-49e7-b084-5c8551cb1192">
+  <component name="PublishConfigData" autoUpload="Always" serverName="vismed-stories" uploadOnCheckin="adb98e40-fc5c-49e7-b084-5c8551cb1192">
     <serverData>
       <paths name="avtozap">
         <serverdata>
@@ -32,5 +32,6 @@
       </paths>
     </serverData>
     <option name="myUploadOnCheckinName" value="vismed-stories" />
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
