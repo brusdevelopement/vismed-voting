@@ -12,5 +12,5 @@ return [
     'dbname' => 'vismed_poll',
     'charset' => 'utf8',
     'user' => 'vismeddbadmin',
-    'pass' => '$1dwa2sK7&'
+    'pass' => '%fdy^HWa91'
 ];
