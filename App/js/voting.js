@@ -15,12 +15,10 @@ $('input:radio').bind('click mousedown', (function() {
             if(isChecked) {
                 //Uncheck and update status
                 isChecked = this.checked = false;
-                $('.errormsg').removeClass('alert alert-danger').text('');
             } else {
                 //Update status
                 //Browser will check the button by itself
                 isChecked = true;
-                $('.errormsg').removeClass('alert alert-danger').text('');
                 //Do something else if radio button selected
                 /*
                 if(this.value == 'somevalue') {
@@ -41,19 +39,20 @@ $(document).ready(function() {
     $(".form-check-input").change(function() {
         if($('.form-check-input:checked').length > 3){
             $(this).prop('checked', false);
-            $('.errormsg').addClass('alert alert-danger').text('Нельзя оценить более трёх кандидатов!');
+            $('.errormsg').text('Нельзя оценить более трёх кандидатов!').fadeIn().delay(2000).fadeOut();
+
         }
         if($('#inlineRadio1:checked').length > 1){
             $(this).prop('checked', false);
-            $('.errormsg').addClass('alert alert-danger').text('Нельзя ставить одинаковый балл разным кандидатам!');
+            $('.errormsg').text('Нельзя ставить одинаковый балл разным кандидатам!').fadeIn().delay(2000).fadeOut();
         }
         if($('#inlineRadio2:checked').length > 1){
             $(this).prop('checked', false);
-            $('.errormsg').addClass('alert alert-danger').text('Нельзя ставить одинаковый балл разным кандидатам!');
+            $('.errormsg').text('Нельзя ставить одинаковый балл разным кандидатам!').fadeIn().delay(2000).fadeOut();
         }
         if($('#inlineRadio3:checked').length > 1){
             $(this).prop('checked', false);
-            $('.errormsg').addClass('alert alert-danger').text('Нельзя ставить одинаковый балл разным кандидатам!');
+            $('.errormsg').text('Нельзя ставить одинаковый балл разным кандидатам!').fadeIn().delay(2000).fadeOut();
         }
     });
 });

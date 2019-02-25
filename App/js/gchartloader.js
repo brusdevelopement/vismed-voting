@@ -11,24 +11,45 @@ function drawChart() {
     // Create our data table out of JSON data loaded from server.
     var data = new google.visualization.DataTable(jsonData);
 
-/*
-    var data = google.visualization.arrayToDataTable([
-        ['Element', 'Density', { role: 'style' }],
-        ['Copper', 8.94, '#b87333'],            // RGB value
-        ['Silver', 10.49, 'silver'],            // English color name
-        ['Gold', 19.30, 'gold'],
-        ['Platinum', 21.45, 'color: #e5e4e2' ], // CSS-style declaration
-    ]);
-*/
+/*    var data = google.visualization.arrayToDataTable([
+        ['Element', 'Density', { role: 'annotation' }],
+        ['Copper', 8.94, 100],            // RGB value
+        ['Silver', 10.49, 54],            // English color name
+        ['Gold', 19.30, 35],
+        ['Platinum', 21.45, 130 ], // CSS-style declaration
+    ]);*/
 
     var options = {
-        title: 'Результаты голосования',
+        annotations: {
+            textStyle: {
+                color: 'black',
+                //fontSize: 11,
+            },
+            alwaysOutside: false
+        },
+        legend: 'none',
+        width: '100%',
+        height: 600,
+        backgroundColor: { fill:'transparent' },
+        dataOpacity: 0.9,
+
+        bar: {groupWidth: "80%"},
+        //gridlines: { count: 12 },
+        //title: 'Результаты голосования',
         chartArea: {width: '50%'},
         hAxis: {
+            ticks: [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160],
             title: 'Кол-во Баллов',
-            minValue: 0
+            minValue: 0,
+            textStyle: {
+                bold: true,
+                italic: false,
+            }
         },
         vAxis: {
+            textStyle: {
+                bold: true,
+            }
             //title: 'Ф.И.О.'
         }
     };

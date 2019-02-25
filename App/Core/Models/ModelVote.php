@@ -104,4 +104,16 @@ class ModelVote extends Model
         $db = new DbPdo();
         return $res = $db->execute($query);
     }
+
+    public function StartVoteStatus(){
+        try{
+            $db = new DbPdo();
+            $query = "SELECT start_id FROM start_vote WHERE 1 LIMIT 1;";
+            $res = $db->execute($query);
+        }catch(PDOException $pe){
+            echo $pe->getMessage();
+        }
+
+        return $res[0][0];
+    }
 }

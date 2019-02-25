@@ -6,30 +6,44 @@
  * Time: 16:30
  */
 ?>
-<form id="sv" method="post" action="/vote/submit">
-    <label>Выберите три лучшие истории:</label>
-    <div class="errormsg" role="alert"></div>
+<div class="container">
+<form class="justify-content-center" id="sv" method="post" action="/vote/submit">
+    <div class="row">
+        <div class="col text-center">
+            <label class="h3 font-italic task">Выберите три лучшие истории:</label>
+        </div>
+    </div>
+    <div class="errormsg alert alert-danger" role="alert" style="display: none;"></div>
     <?php
     if(is_array($data)){
         foreach($data as $k=>$v){
             ?>
-            <fieldset id="fs<?php echo $k?>">
-            <label><?php echo $v;?></label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="<?php echo $k?>" id="inlineRadio1" value="1">
-                <label class="form-check-label" for="inlineRadio1">1 балл</label>
+            <div class="row form-group" id="fs<?php echo $k?>">
+            <div class="col text-right font-weight-bold">
+
+                <label><?php echo $v;?></label>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="<?php echo $k?>" id="inlineRadio2" value="2">
-                <label class="form-check-label" for="inlineRadio2">2 балла</label>
+            <div class="col font-weight-bold">
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="<?php echo $k?>" id="inlineRadio1" value="1">
+                    <label class="form-check-label" for="inlineRadio1">1 балл</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="<?php echo $k?>" id="inlineRadio2" value="2">
+                    <label class="form-check-label" for="inlineRadio2">2 балла</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="<?php echo $k?>" id="inlineRadio3" value="3">
+                    <label class="form-check-label" for="inlineRadio3">3 балла</label>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="<?php echo $k?>" id="inlineRadio3" value="3">
-                <label class="form-check-label" for="inlineRadio3">3 балла</label>
-            </div>
-            </fieldset><?php
+            </div><?php
         }
     }
     ?>
-    <button form="sv" type="submit" id="submit">Отправить голос</button>
+    <div class="col text-center">
+        <button class="btn btn-primary" form="sv" type="submit" id="submit">Отправить голос</button>
+    </div>
 </form>
+</div>
