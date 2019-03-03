@@ -1,16 +1,21 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 1
+ * Created by Brusilovskiy Maxim.
+ * User: Maxim.Brusilovskiy
  * Date: 23.02.2019
  * Time: 16:29
+ * @author		Maxim Brusilovskiy <brys@starlink.ru>
+ * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class ModelVote extends Model
+class ModelVote implements Model
 {
-    /*
+
+    /**
      * Get storytellers
-     * */
+     *
+     * @return array
+     */
     public function get_data()
     {
         try{
@@ -31,6 +36,9 @@ class ModelVote extends Model
         return $stories;
     }
 
+    /**
+     * @return bool
+     */
     public function is_referal(){
         $ref = $this->get_referal();
         $query = "SELECT * FROM ref_links WHERE ref_id=".$ref." LIMIT 1";
@@ -43,9 +51,15 @@ class ModelVote extends Model
         }
         return $is_ref;
     }
+
+    /**
+     * @param mixed ...$link
+     *
+     * @return int
+     */
     public function get_referal(...$link)
     {
-        if($link){
+        if($link && key_exists('HTTP_REFERER', $_SERVER)){
             $array = parse_url($_SERVER['HTTP_REFERER']);
             if(key_exists('query', $array) ) {
                 $arr = explode('=', $array['query']);
@@ -62,6 +76,11 @@ class ModelVote extends Model
         return $ref;
     }
 
+    /**
+     * @param $ref
+     *
+     * @return int
+     */
     public function get_region($ref){
         $query = "SELECT region_id FROM ref_links WHERE ref_id=".$ref." LIMIT 1";
         $db = new DbPdo();
@@ -72,6 +91,11 @@ class ModelVote extends Model
         return $res[0]['region_id'];
     }
 
+    /**
+     * Submitting poll results to DB
+     *
+     * @return void
+     */
     public function submit_poll(){
         $ref_id = $this->get_referal('true');
         $arr = $_POST;
@@ -81,13 +105,15 @@ class ModelVote extends Model
             $query .= "('{$ref_id}', '{$name}', '{$story}', '{$score}'), ";
         }
         $query = substr($query, 0, -2).';';
-        //$db = new PDO('mysql:host=localhost;dbname=vismed_poll;charset=utf8', 'vismeddbadmin', '$1dwa2sK7&', array(
-        //    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        //));
         $db = new DbPdo();
         $db->exec($query);
     }
 
+    /**
+     * @param $ref
+     *
+     * @return string
+     */
     public function get_storyteller($ref){
         $query = "SELECT ref_name FROM ref_links WHERE ref_id=".$ref." LIMIT 1";
         $db = new DbPdo();
@@ -98,22 +124,16 @@ class ModelVote extends Model
         return $res[0]['ref_name'];
     }
 
+    /**
+     * @return array|bool
+     */
     public function check_double_poll(){
-        $ref_id = $this->get_referal('true');
-        $query = "SELECT ref_id FROM poll_results WHERE ref_id=".$ref_id." LIMIT 1";
-        $db = new DbPdo();
-        return $res = $db->execute($query);
-    }
-
-    public function StartVoteStatus(){
-        try{
+        if(key_exists('HTTP_REFERER', $_SERVER)){
+            $ref_id = $this->get_referal('true');
+            $query = "SELECT ref_id FROM poll_results WHERE ref_id=".$ref_id." LIMIT 1";
             $db = new DbPdo();
-            $query = "SELECT start_id FROM start_vote WHERE 1 LIMIT 1;";
-            $res = $db->execute($query);
-        }catch(PDOException $pe){
-            echo $pe->getMessage();
+            return $res = $db->execute($query);
         }
-
-        return $res[0][0];
+        return false;
     }
 }

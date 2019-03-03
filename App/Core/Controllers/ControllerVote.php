@@ -1,28 +1,42 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 1
+ * Created by Brusilovskiy Maxim.
+ * User: Maxim.Brusilovskiy
  * Date: 23.02.2019
  * Time: 16:28
+ * @author		Maxim Brusilovskiy <brys@starlink.ru>
+ * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class ControllerVote extends Controller
+include _CORE_DIR_.'/Controllers/ControllerStartvote.php';
+include _CORE_DIR_.'/Models/ModelStartvote.php';
+
+class ControllerVote extends ControllerStartvote
 {
+    /**
+     * ControllerVote constructor.
+     *
+     * @return void
+     */
     function __construct()
     {
-        $this->model = new ModelVote();
-        $this->view = new View();
+        parent::__construct();
+        $this->model2 = new ModelVote();
     }
 
+    /**
+     * @return mixed
+     */
     function action_index()
     {
-        $referal = $this->model->is_referal();
+        $referal = $this->model2->is_referal();
         if($referal == false){
-            return $this->view->generate('main_view.php', 'template_view.php');
+            $votes = self::vote_count();
+            return $this->view->generate('main_view.php', 'template_view.php', $dat = null, $votes);
         }
-        $status = $this->model->StartVoteStatus();
+        $status = $this->model->get_data();
         if($status == 1){
-            $data = $this->model->get_data();
+            $data = $this->model2->get_data();
             return $this->view->generate('vote_view.php', 'template_view.php', $data, $referal);
         } else {
             $data = '<div class="row">
@@ -37,8 +51,25 @@ class ControllerVote extends Controller
         }
     }
 
+    function vote_count(){
+        include_once _CORE_DIR_.'/Models/ModelMain.php';
+        $main_obj = new ModelMain();
+        return $main_obj->get_data();
+    }
+
+    /**
+     * @return mixed
+     */
     function action_submit(){
-        $double = $this->model->check_double_poll();
+        $double = $this->model2->check_double_poll();
+        if ($double == FALSE){
+            $data = '<div class="row">
+                        <div class="col submit2 text-center">
+                            <a class="btn btn-primary" href="/" role="button">Перейти к результатам голосования</a>
+                        </div>
+                    </div>';
+            return $this->view->generate('main_view.php', 'template_view.php', $data);
+        }
         if($double){
             $data = '<div class="row">
                     <div class="col submit1 text-center"><h3>К сожалению, голосовать можно только один раз.</h3></div>
@@ -49,7 +80,7 @@ class ControllerVote extends Controller
     </div>
 </div>';
         } else {
-            $this->model->submit_poll();
+            $this->model2->submit_poll();
             $data = '<div class="row">
                     <div class="col submit1 text-center"><h3>Спасибо! Ваши голоса приняты.</h3></div>
                     </div>

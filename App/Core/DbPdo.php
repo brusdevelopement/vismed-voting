@@ -1,45 +1,59 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 1
+ * Created by Brusilovskiy Maxim.
+ * User: Maxim.Brusilovskiy
  * Date: 23.02.2019
  * Time: 18:59
+ * @author		Maxim Brusilovskiy <brys@starlink.ru>
+ * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class DbPdo
 {
+
+    /**
+     * @var PDO
+     */
     public $pdo;
 
-    public function __construct($specArg = null)
+
+    /**
+     * DbPdo constructor.
+     * Returns new PDO
+     *
+     * @return PDO
+     */
+    public function __construct()
     {
-        if($specArg!=null){
-            $settings = $this->getPDOSettings2();
-        } else {
-            $settings = $this->getPDOSettings();
-        }
-        $this->pdo = new \PDO($settings['dsn'], $settings['user'], $settings['pass'], array(
+        $settings = $this->getPDOSettings();
+        return $this->pdo = new \PDO($settings['dsn'], $settings['user'], $settings['pass'], array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ));
 
     }
 
+    /**
+     * Gets db connection settings
+     *
+     * @return mixed
+     */
     protected function getPDOSettings()
     {
-        $config = include 'App/config/db.php';
-        $result['dsn'] = "{$config['type']}:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}";
-        $result['user'] = $config['user'];
-        $result['pass'] = $config['pass'];
-        return $result;
-    }
-    protected function getPDOSettings2()
-    {
-        $config = include '../config/db.php';
+        $config = include _ROOT_DIR_ . '/config/settings.php';
         $result['dsn'] = "{$config['type']}:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}";
         $result['user'] = $config['user'];
         $result['pass'] = $config['pass'];
         return $result;
     }
 
+    /**
+     * Executes an SQL statement, returning a result set as a PDOStatement object
+     *
+     * @param $query
+     * @param array|null $params
+     *
+     * @return array
+     */
     public function execute($query, array $params=null)
     {
 
@@ -53,6 +67,13 @@ class DbPdo
 
     }
 
+    /**
+     * Execute an SQL statement and return the number of affected rows
+     *
+     * @param $query
+     *
+     * @return int
+     */
     public function exec($query){
         return $stmt = $this->pdo->exec($query);
     }

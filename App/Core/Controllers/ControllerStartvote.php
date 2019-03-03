@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 1
+ * Created by Brusilovskiy Maxim.
+ * User: Maxim.Brusilovskiy
  * Date: 24.02.2019
  * Time: 22:08
+ * @author		Maxim Brusilovskiy <brys@starlink.ru>
+ * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class ControllerStartvote extends Controller
@@ -16,14 +18,14 @@ class ControllerStartvote extends Controller
 
     function action_index()
     {
-        $status=$this->model->StartVoteStatus();
+        $status=$this->model->get_data();
         $this->view->generate('startvote_view.php', 'template_view.php', $status);
     }
 
     function action_submit()
     {
         $this->model->StatusChange();
-        $status=$this->model->StartVoteStatus();
+        $status=$this->model->get_data();
         $this->view->generate('startvote_view.php', 'template_view.php', $status);
     }
 }

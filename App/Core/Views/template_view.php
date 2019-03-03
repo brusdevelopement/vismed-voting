@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 1
+ * Created by Brusilovskiy Maxim.
+ * User: Maxim.Brusilovskiy
  * Date: 23.02.2019
  * Time: 2:13
+ * @author		Maxim Brusilovskiy <brys@starlink.ru>
+ * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 ?>
 <!DOCTYPE html>
@@ -33,7 +35,7 @@
     </header>
 <img id="pack" src="/App/img/vismed-packs-big.png">
 <div id="intro">
-<?php include 'App/Core/Views/'.$content_view; ?>
+<?php include _CORE_DIR_.'/Views/'.$content_view; ?>
     </div>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"

@@ -1,13 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 1
+ * Created by Brusilovskiy Maxim.
+ * User: Maxim.Brusilovskiy
  * Date: 24.02.2019
  * Time: 2:55
+ * @author		Maxim Brusilovskiy <brys@starlink.ru>
+ * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+
+require_once dirname(__FILE__).'/../config/defines.php';
 require_once 'DbPdo.php';
-$db = new DbPdo('SpecArg');
+$db = new DbPdo();
 $query = "SELECT author_name, sum(score) as score FROM poll_results GROUP BY author_name ORDER BY score DESC;";
     /*$query = "SELECT a.ref_name as author_name, b.score as score FROM stories AS a
               LEFT JOIN (SELECT story_id, sum(score) as score FROM poll_results GROUP BY story_id) AS b ON a.ref_id=b.story_id
