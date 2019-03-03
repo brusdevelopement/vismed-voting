@@ -16,5 +16,5 @@ return [
     'dbname' => 'vismed_poll',
     'charset' => 'utf8',
     'user' => 'vismeddbadmin',
-    'pass' => '&Ehd523$jft%'
+    'pass' => '&Eh1d523$jft%'
 ];
