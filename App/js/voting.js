@@ -60,7 +60,7 @@ $(document).ready(function() {
 //Submition validation
 $(document).on("submit", "form", function(e){
     if($('.form-check-input:checked').length < 3){
-        $('.errormsg').addClass('alert alert-danger').text('Оценок должно быть ТРИ!');
+        $('.errormsg').text('Оценок должно быть ТРИ!').fadeIn().delay(2000).fadeOut();
         e.preventDefault();
         return false;
     }

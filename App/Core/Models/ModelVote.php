@@ -20,8 +20,7 @@ class ModelVote implements Model
     {
         try{
             $db = new DbPdo();
-            $query = "SELECT * FROM stories WHERE 1;";
-            $res = $db->execute($query);
+            $res = $db->execute("SELECT * FROM stories WHERE 1;");
         }catch(PDOException $pe){
             echo $pe->getMessage();
         }
@@ -41,9 +40,8 @@ class ModelVote implements Model
      */
     public function is_referal(){
         $ref = $this->get_referal();
-        $query = "SELECT * FROM ref_links WHERE ref_id=".$ref." LIMIT 1";
         $db = new DbPdo();
-        $res = $db->execute($query);
+        $res = $db->execute("SELECT * FROM ref_links WHERE ref_id=".$ref." LIMIT 1;");
         if(!empty($res)){
             $is_ref = true;
         } else {
@@ -82,9 +80,8 @@ class ModelVote implements Model
      * @return int
      */
     public function get_region($ref){
-        $query = "SELECT region_id FROM ref_links WHERE ref_id=".$ref." LIMIT 1";
         $db = new DbPdo();
-        $res = $db->execute($query);
+        $res = $db->execute("SELECT region_id FROM ref_links WHERE ref_id=".$ref." LIMIT 1;");
         if(empty($res)){
             return 100;
         }
@@ -115,9 +112,8 @@ class ModelVote implements Model
      * @return string
      */
     public function get_storyteller($ref){
-        $query = "SELECT ref_name FROM ref_links WHERE ref_id=".$ref." LIMIT 1";
         $db = new DbPdo();
-        $res = $db->execute($query);
+        $res = $db->execute("SELECT ref_name FROM ref_links WHERE ref_id=".$ref." LIMIT 1;");
         if(empty($res)){
             return '';
         }
@@ -130,9 +126,8 @@ class ModelVote implements Model
     public function check_double_poll(){
         if(key_exists('HTTP_REFERER', $_SERVER)){
             $ref_id = $this->get_referal('true');
-            $query = "SELECT ref_id FROM poll_results WHERE ref_id=".$ref_id." LIMIT 1";
             $db = new DbPdo();
-            return $res = $db->execute($query);
+            return $res = $db->execute("SELECT ref_id FROM poll_results WHERE ref_id=".$ref_id." LIMIT 1;");
         }
         return false;
     }

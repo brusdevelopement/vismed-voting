@@ -20,8 +20,7 @@ class ModelStartvote implements Model
     {
         try{
             $db = new DbPdo();
-            $query = "SELECT start_id FROM start_vote WHERE 1 LIMIT 1;";
-            $startvote = $db->execute($query);
+            $startvote = $db->execute("SELECT start_id FROM start_vote WHERE 1 LIMIT 1;");
         }catch(PDOException $pe){
             echo $pe->getMessage();
         }
@@ -41,8 +40,7 @@ class ModelStartvote implements Model
         }
         try{
             $db = new DbPdo();
-            $query = "UPDATE start_vote SET start_id = ".$status." WHERE res_id = 1;";
-            $db->exec($query);
+            $db->exec("UPDATE start_vote SET start_id = ".$status." WHERE res_id = 1;");
         }catch(PDOException $pe){
             echo $pe->getMessage();
         }

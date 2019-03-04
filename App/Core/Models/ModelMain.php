@@ -18,8 +18,7 @@ class ModelMain implements Model
     public function get_data(){
         try{
             $db = new DbPdo();
-            $query = "SELECT COUNT(DISTINCT ref_id) as a FROM poll_results;";
-            $res = $db->execute($query);
+            $res = $db->execute("SELECT COUNT(DISTINCT ref_id) as a FROM poll_results;");
         }catch(PDOException $pe){
             echo $pe->getMessage();
         }
