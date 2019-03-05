@@ -1,0 +1,11 @@
+{
+    "require": {
+        "intervention/image": "^2.4"
+    },
+    "name":"App",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}

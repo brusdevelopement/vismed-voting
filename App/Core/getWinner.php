@@ -7,10 +7,11 @@
  * @author		Maxim Brusilovskiy <brys@starlink.ru>
  * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
+use App\Core\DbPdo as DbPdo;
 
 require_once dirname(__FILE__).'/../config/defines.php';
 require_once 'DbPdo.php';
+
 $db = new DbPdo();
 $res = $db->execute("SELECT author_name, sum(score) as score FROM poll_results GROUP BY author_name ORDER BY score DESC;");
 $table = array();

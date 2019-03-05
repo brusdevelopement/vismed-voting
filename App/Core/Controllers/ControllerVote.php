@@ -7,6 +7,9 @@
  * @author		Maxim Brusilovskiy <brys@starlink.ru>
  * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace App\Core\Controllers;
+use App\Core\Models\ModelMain as ModelMain;
+use App\Core\Models\ModelVote as ModelVote;
 
 include _CORE_DIR_.'/Controllers/ControllerStartvote.php';
 include _CORE_DIR_.'/Models/ModelStartvote.php';
